@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Add product</title>
+{% endblock %}
+
+{% block active_link %}
+  <li><a href="../">Home</a></li>
+  <li><a href="../tv/">Tv</a></li>
+  <li><a href="../fridge/">Fridge</a></li>
+{% endblock %}
+
+{% block body %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+    window.onload = function() {
+        document.getElementById("formFridge").style.display = "none";
+    };
+
+    function ChangeAppliance() {
+        var value = document.getElementById("select_appliance").value;
+        if (value == "new_tv") {
+            document.getElementById("formTv").style.display = "";
+            document.getElementById("formFridge").style.display = "none";
+        } else {
+            document.getElementById("formFridge").style.display = "";
+            document.getElementById("formTv").style.display = "none";
+
+        }
+    }
+</script>
+
+    <p>What do you want to add? <select id="select_appliance" onchange="ChangeAppliance()">
+        <option value="new_tv">Tv</option>
+        <option value="new_fridge">Fridge</option>
+    </select></p>
+
+    <form method="POST" enctype="multipart/form-data" id = "formTv">
+    {% csrf_token %}
+    {{ form_tv.as_p }}
+    <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+    <form method="POST" enctype="multipart/form-data" id = "formFridge">
+    {% csrf_token %}
+    {{ form_fridge.as_p }}
+    <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+
+{% endblock %}
