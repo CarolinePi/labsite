@@ -16,6 +16,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript">
+
   createJson = function(id, clicks) {
     var jsonData = {};
     jsonData.id = id;
@@ -38,8 +39,7 @@
     document.getElementById('click_' + id).innerHTML = clicks;
   }
 </script>
-
-  {% for post in fridge_posts %}
+  {% for post in fridge_posts|dictsort:"clicks" %}
   <table>
     <tr>
        <td rowspan="3" bgcolor="white"><img src="{{ post.image.url }}" width="200" height="300"></td>

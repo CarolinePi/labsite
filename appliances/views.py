@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from .forms import TvForm, FridgeForm
 from .models import TvModel, FridgeModel
 from django.views.decorators.csrf import csrf_exempt
@@ -8,8 +8,6 @@ from .db import update_fridge_clicks, update_tv_clicks
 # Create your views here.
 def home(request):
     return render(request, 'appliances/home.html')
-
-# use_required_attribute=False
 
 
 def add_new(request):
@@ -46,4 +44,4 @@ def receiver(request):
             update_fridge_clicks(*json_string['id'], *json_string['clicks'])
         elif json_string['db'][0] == 'appliances_tvmodel':
             update_tv_clicks(*json_string['id'], *json_string['clicks'])
-    return redirect('fridge')
+    return redirect('home')
