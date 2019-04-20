@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .forms import TvForm, FridgeForm
 from .models import TvModel, FridgeModel
 from django.views.decorators.csrf import csrf_exempt
-from .db import update_clicks
+from .db import update_fridge_clicks, update_tv_clicks
 
 
 # Create your views here.
@@ -42,7 +42,8 @@ def fridge(request):
 def receiver(request):
     if request.method == 'POST' and request.is_ajax():
         json_string = dict(request.POST)
-        update_clicks(*json_string['id'], *json_string['clicks'], *json_string['db'])
+        if json_string['db'] == 'appliances_fridgemodel':
+            update_fridge_clicks(*json_string['id'], *json_string['clicks'])
+        elif json_string['db'] == 'appliances_tvmodel':
+            update_tv_clicks(*json_string['id'], *json_string['clicks'])
     return redirect('fridge')
-
-
