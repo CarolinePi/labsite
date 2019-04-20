@@ -42,8 +42,8 @@ def fridge(request):
 def receiver(request):
     if request.method == 'POST' and request.is_ajax():
         json_string = dict(request.POST)
-        if json_string['db'] == 'appliances_fridgemodel':
+        if json_string['db'][0] == 'appliances_fridgemodel':
             update_fridge_clicks(*json_string['id'], *json_string['clicks'])
-        elif json_string['db'] == 'appliances_tvmodel':
+        elif json_string['db'][0] == 'appliances_tvmodel':
             update_tv_clicks(*json_string['id'], *json_string['clicks'])
     return redirect('fridge')
